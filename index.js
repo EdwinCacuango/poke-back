@@ -1,37 +1,40 @@
 const cors = require('cors')
 const express = require("express")
-const { default: mongoose } = require('mongoose')
-const Model = require('./models/models')
 
-const mongoString = process.env.DATABASE_URL
+const mongoose=require('mongoose')
 
-mongoose.connect(mongoString)
-const database = mongoose.connection
+const Type = require('./models/typesOfPokes')
 
-database.on('error', (err) => {
-    console.log(err)
-})
+const mongoString 
 
-database.once('conected', () => {
-    console.log('Database connected')
-})
+main().catch(err=> console.log(err))
 
+async function  main () {
+    await mongoose.connect(mongoString)
+}
 
 const app = express()
+
+//To allow request from diferent ip adress 
 app.use(cors())
 
+// To parsed json information sended from client
+app.use(express.json())
+
+
+//Home page
 app.get("/", (req, res) => {
     res.send("Hola mundo desde server")
 })
 
-app.get("/api/pokemons", (req, res) => {
-    res.send("lista de todos los objetos")
-})
 
-app.get("/api/one-poke/:id", (req, res) => {
-    const id = req.params.id
-    res.send(`${id}`)
-})
-app.listen(3000, () => {
+// Apply all routes
+const routes = require('./routes/routes');
+app.use('/api', routes)
+
+
+//PORTS
+const port= process.env.PORT || 3000
+app.listen(port, () => {
     console.log("Service online")
 })  

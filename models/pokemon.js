@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 
-const dataSchema = new mongoose.Schema({
+const pokemonSchema = new mongoose.Schema({
     name: {
         require: true,
         type: String
     },
     image: {
-        require: true,
+        // require: true,
         type: String
     },
     description: {
@@ -27,4 +27,5 @@ const dataSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("Data", dataSchema)
+//Used schema for create and export a model
+module.exports = mongoose.model("Pokemon", pokemonSchema)
