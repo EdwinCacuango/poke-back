@@ -1,15 +1,16 @@
+require('dotenv').config();
 const cors = require('cors')
 const express = require("express")
 
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 const Type = require('./models/typesOfPokes')
 
-const mongoString 
+const mongoString = process.env.DATABASE_URL
 
-main().catch(err=> console.log(err))
+main().catch(err => console.log(err))
 
-async function  main () {
+async function main() {
     await mongoose.connect(mongoString)
 }
 
@@ -34,7 +35,7 @@ app.use('/api', routes)
 
 
 //PORTS
-const port= process.env.PORT || 3000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log("Service online")
 })  

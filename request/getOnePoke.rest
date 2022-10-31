@@ -1,0 +1,1 @@
+GET http://localhost:3000/api/one-poke/635f02f58c16c7dfeafc9a5d
